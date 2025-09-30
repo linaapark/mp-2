@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Artwork} from "../interfaces/arts.ts";
+import type {Artwork} from "../interfaces/arts.ts";
 
 const AllCharsDiv=styled.div`
     display: flex;
@@ -8,7 +8,7 @@ const AllCharsDiv=styled.div`
     background-color: bisque;
 `;
 
-const SingleCharDiv=styled.div<{status: string}>`
+const SingleCharDiv=styled.div`
     display: flex;
     flex-direction: column;   
     justify-content: center;
@@ -22,17 +22,21 @@ const SingleCharDiv=styled.div<{status: string}>`
     text-align: center;
 `;
 
-export default function Artwork(props : { data:Artwork[] } ){
+export default function RickAndMorty({ data }: { data: Artwork[] }) {
     return (
-        <AllCharsDiv >
-            {props.data.map((art: Artwork) =>
-                    <SingleCharDiv key={art.id}>
-                        <h1>{art.title}</h1>
-                        <p>{art.artist_display}</p>
-                        <img src={art.image} alt={`Artwork ${art.title}`} />
-                    </SingleCharDiv>
-                )
-            }
+        <AllCharsDiv>
+            {data.map((art) => (
+                <SingleCharDiv key={art.id}>
+                    <h1>{art.title}</h1>
+                    <img
+                        src={`https://www.artic.edu/iiif/2/${art.image_id}/full/843,/0/default.jpg`}
+                        alt={`Artwork titled ${art.title}`}
+                    />
+                    <p>Artist: {art.artist_display}</p>
+                    <p>Year: {art.date_display}</p>
+                    <p>{art.is_on_view ? "Currently on view" : "Not on display"}</p>
+                </SingleCharDiv>
+            ))}
         </AllCharsDiv>
     );
 }

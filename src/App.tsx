@@ -1,7 +1,7 @@
 import ArtsInstitueChicago from "./components/art_institute_of_chicago.tsx";
-//import styled from "styled-components";
+import styled from "styled-components";
 import {useEffect, useState} from "react";
-import {Artwork} from "interfaces/arts.ts";
+import type {Artwork} from "./interfaces/arts";
 
 const ParentDiv=styled.div`
     width: 80vw;
@@ -12,14 +12,15 @@ const ParentDiv=styled.div`
 export default function App(){
 
     // useState Hook to store Data.
-    const [data, setData] = useState<Arts[]>([]);
+    const [data, setData] = useState<Artwork[]>([]);
 
     // useEffect Hook for error handling and re-rendering.
     useEffect(() => {
         async function fetchData(): Promise<void> {
-            const rawData = await fetch("https://api.artic.edu/docs/#introduction");
-            const {results} : {results: Arts[]} = await rawData.json();
-            setData(results);
+            const rawData = await fetch("https://api.artic.edu/api/v1/artworks");
+            const { data } : { data: Artwork[]} = await rawData.json();
+            setData(data);
+
         }
         fetchData()
             .then(() => console.log("Data fetched successfully"))
@@ -28,6 +29,7 @@ export default function App(){
 
     return(
         <ParentDiv>
+            <h1>Art Institute of Chicago</h1>
             <ArtsInstitueChicago data={data}/>
         </ParentDiv>
     )

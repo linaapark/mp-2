@@ -4,7 +4,7 @@ import type {Artwork} from "../interfaces/arts.ts";
 const AllCharsDiv=styled.div`
     display: flex;
     flex-flow: row wrap;    
-    justify-content: space-evenly;
+    justify-content: center;
     background-color: bisque;
 `;
 
@@ -12,7 +12,7 @@ const SingleCharDiv=styled.div`
     display: flex;
     flex-direction: column;   
     justify-content: center;
-    max-width: 30%;
+    max-width: 20%;
     padding: 2%;
     margin: 1%;
     background-color: white;
